@@ -1,0 +1,101 @@
+[
+  {
+    "file": "video-01.mp4",
+    "poster": "video-01.jpg",
+    "source": "https://assets.mixkit.co/videos/608/608-360.mp4",
+    "sourcePage": "https://mixkit.co/free-stock-video/running/",
+    "duration": 4,
+    "width": 320,
+    "height": 240,
+    "bytes": 63056,
+    "note": "Silent four-second excerpt for the local schematic."
+  },
+  {
+    "file": "video-02.mp4",
+    "poster": "video-02.jpg",
+    "source": "https://assets.mixkit.co/videos/722/722-360.mp4",
+    "sourcePage": "https://mixkit.co/free-stock-video/running/",
+    "duration": 4,
+    "width": 320,
+    "height": 240,
+    "bytes": 95677,
+    "note": "Silent four-second excerpt for the local schematic."
+  },
+  {
+    "file": "video-03.mp4",
+    "poster": "video-03.jpg",
+    "source": "https://assets.mixkit.co/videos/606/606-360.mp4",
+    "sourcePage": "https://mixkit.co/free-stock-video/running/",
+    "duration": 4,
+    "width": 320,
+    "height": 240,
+    "bytes": 104870,
+    "note": "Silent four-second excerpt for the local schematic."
+  },
+  {
+    "file": "video-04.mp4",
+    "poster": "video-04.jpg",
+    "source": "https://assets.mixkit.co/videos/32809/32809-360.mp4",
+    "sourcePage": "https://mixkit.co/free-stock-video/running/",
+    "duration": 4,
+    "width": 320,
+    "height": 240,
+    "bytes": 46896,
+    "note": "Silent four-second excerpt for the local schematic."
+  },
+  {
+    "file": "video-05.mp4",
+    "poster": "video-05.jpg",
+    "source": "https://assets.mixkit.co/videos/609/609-360.mp4",
+    "sourcePage": "https://mixkit.co/free-stock-video/running/",
+    "duration": 4,
+    "width": 320,
+    "height": 240,
+    "bytes": 126480,
+    "note": "Silent four-second excerpt for the local schematic."
+  },
+  {
+    "file": "video-06.mp4",
+    "poster": "video-06.jpg",
+    "source": "https://assets.mixkit.co/videos/46653/46653-360.mp4",
+    "sourcePage": "https://mixkit.co/free-stock-video/running/",
+    "duration": 4,
+    "width": 320,
+    "height": 240,
+    "bytes": 78356,
+    "note": "Silent four-second excerpt for the local schematic."
+  },
+  {
+    "file": "video-07.mp4",
+    "poster": "video-07.jpg",
+    "source": "https://assets.mixkit.co/videos/597/597-360.mp4",
+    "sourcePage": "https://mixkit.co/free-stock-video/running/",
+    "duration": 4,
+    "width": 320,
+    "height": 240,
+    "bytes": 54450,
+    "note": "Silent four-second excerpt for the local schematic."
+  },
+  {
+    "file": "video-08.mp4",
+    "poster": "video-08.jpg",
+    "source": "https://assets.mixkit.co/videos/46654/46654-360.mp4",
+    "sourcePage": "https://mixkit.co/free-stock-video/running/",
+    "duration": 4,
+    "width": 320,
+    "height": 240,
+    "bytes": 79350,
+    "note": "Silent four-second excerpt for the local schematic."
+  },
+  {
+    "file": "video-09.mp4",
+    "poster": "video-09.jpg",
+    "source": "https://assets.mixkit.co/videos/32799/32799-360.mp4",
+    "sourcePage": "https://mixkit.co/free-stock-video/running/",
+    "duration": 4,
+    "width": 320,
+    "height": 240,
+    "bytes": 115031,
+    "note": "Silent four-second excerpt for the local schematic."
+  }
+]
