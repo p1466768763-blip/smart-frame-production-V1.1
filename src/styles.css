@@ -155,13 +155,12 @@ button { cursor: pointer; }
 .table-scroll:focus-visible { outline: 2px solid var(--qifei-pink); outline-offset: 3px; }
 
 .progress-table { width: 100%; min-width: 900px; table-layout: fixed; border-collapse: separate; border-spacing: 0; color: #606266; background: #fff; font-size: 14px; text-rendering: auto; -webkit-font-smoothing: auto; }
-.progress-table .task-info-col { width: 190px; }
+.progress-table .task-info-col { width: 260px; }
 .progress-table .finished-video-col { width: 170px; }
 .progress-table .product-col { width: 270px; }
 .progress-table .frame-output-col { width: 180px; }
 .progress-table .goal-col { width: 100px; }
 .progress-table .storyboard-output-col, .progress-table .video-output-col { width: 200px; }
-.progress-table .task-link-col { width: 220px; }
 
 .progress-table th, .progress-table td { height: 40px; padding: 8px 0; border-right: 1px solid var(--qifei-border); border-bottom: 1px solid var(--qifei-border); vertical-align: middle; text-align: left; background: #fff; }
 .progress-table th { height: 40px; padding: 0; color: #909399; background: #f5f7fa; font-weight: 600; }
@@ -169,9 +168,11 @@ button { cursor: pointer; }
 .progress-table tbody tr:hover td { background: #f5f7fa; }
 .progress-table .batch-first-row td { background: #edf1f7; }
 .progress-table .batch-first-row:hover td { background: #e7ecf4; }
-.progress-table .task-info-cell .cell { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.progress-table .task-info-cell .cell { white-space: normal; font-variant-numeric: tabular-nums; }
 .task-info-number { display: block; color: #303133; }
 .task-info-generation { display: block; margin-top: 2px; color: #909399; font-size: 12px; }
+.task-info-cell .task-link { display: block; margin-top: 4px; line-height: 18px; }
+.task-info-cell .task-link-pending { display: block; margin-top: 4px; }
 .table-product { display: flex; align-items: center; gap: 10px; }
 .table-product-thumbnail { display: block; flex: 0 0 56px; width: 56px; height: 56px; border: 1px solid #ebeef5; border-radius: 5px; object-fit: cover; background: #f5f7fa; }
 .table-product-info { display: flex; flex-direction: column; min-width: 0; gap: 2px; line-height: 18px; }

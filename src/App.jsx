@@ -55,7 +55,7 @@ const groups = [
   },
 ];
 
-const headers = ["任务信息", "成片视频", "商品", "抽帧产出图", "生成任务链接"];
+const headers = ["抽帧产出图", "商品", "成片视频", "任务信息 / 生成任务链接"];
 
 function formatTaskNumber(createdOn, taskSequence, outputGroup = 1) {
   return `${createdOn.replaceAll("-", "").slice(2)}${String(taskSequence).padStart(2, "0")}${String(outputGroup).padStart(2, "0")}`;
@@ -494,10 +494,13 @@ function App() {
               <div className="table-frame">
                 <div className="table-scroll" role="region" aria-label="目标进度表格，可横向滚动" tabIndex={0}>
                   <table key="original-progress-table" className="progress-table" aria-label="目标进度示意数据">
-                <colgroup><col className="task-info-col" /><col className="finished-video-col" /><col className="product-col" /><col className="frame-output-col" /><col className="task-link-col" /></colgroup>
+                <colgroup><col className="frame-output-col" /><col className="product-col" /><col className="finished-video-col" /><col className="task-info-col" /></colgroup>
                 <thead><tr>{headers.map((h, i) => <th key={`${i}-${h}`} scope="col"><div className="cell">{h}</div></th>)}</tr></thead>
                 <tbody>
                   {visibleRows.map(({ g, row, taskLinks, taskNumber, generationTaskId, productId, isNew, batchId, batchSize, isBatchFirst, expanded }) => <tr key={taskNumber} className={isNew ? "new-task-row" : !isBatchFirst ? "batch-child-row" : "batch-first-row"}>
+                    <td className="frame-output-cell"><div className="cell">{isNew ? <span className="pending-output">正在抽帧</span> : <ThumbnailGrid label={`${g.store} ${row[0]}抽帧`} images={frameThumbnails} count={g.complete} />}</div></td>
+                    <td className="product-cell"><div className="cell"><ProductSummary productId={productId} /></div></td>
+                    <td className="finished-video-cell"><div className="cell">{isNew ? <span className="pending-output">待生成</span> : <FinishedVideo generationTaskId={generationTaskId} onPlay={setActiveVideo} />}</div></td>
                     <td className="task-info-cell"><div className="cell">
                       <span className="task-info-number">{taskNumber}</span>
                       <span className="task-info-generation">生成任务 ID：{generationTaskId}</span>
@@ -505,11 +508,8 @@ function App() {
                         <ChevronDown size={13} className={expanded ? "expanded" : ""} />
                         <span>{expanded ? "收起同批任务" : `展开同批 ${batchSize - 1} 条`}</span>
                       </button>}
+                      {isNew ? <span className="pending-output task-link-pending">生成中</span> : <TaskLink href={taskLinks.frame} label={`${g.store} ${row[0]}随机镜头视频任务`} />}
                     </div></td>
-                    <td className="finished-video-cell"><div className="cell">{isNew ? <span className="pending-output">待生成</span> : <FinishedVideo generationTaskId={generationTaskId} onPlay={setActiveVideo} />}</div></td>
-                    <td className="product-cell"><div className="cell"><ProductSummary productId={productId} /></div></td>
-                    <td className="frame-output-cell"><div className="cell">{isNew ? <span className="pending-output">正在抽帧</span> : <ThumbnailGrid label={`${g.store} ${row[0]}抽帧`} images={frameThumbnails} count={g.complete} />}</div></td>
-                    <td className="task-link-cell"><div className="cell">{isNew ? <span className="pending-output">生成中</span> : <TaskLink href={taskLinks.frame} label={`${g.store} ${row[0]}随机镜头视频任务`} />}</div></td>
                   </tr>)}
                   {flatRows.length === 0 && <tr><td colSpan={headers.length} className="empty-cell">暂无数据</td></tr>}
                 </tbody>

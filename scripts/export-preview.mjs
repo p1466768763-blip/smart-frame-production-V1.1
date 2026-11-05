@@ -34,7 +34,7 @@ await fs.writeFile(path.join(output, "index.html"), html);
 
 const sourceFiles = ["package.json", "index.html", "src/main.jsx", "src/App.jsx", "src/styles.css", "vite.config.mjs", "scripts/export-preview.mjs"];
 const languages = { ".json": "json", ".html": "html", ".jsx": "jsx", ".css": "css", ".mjs": "javascript", ".js": "javascript" };
-const sections = ["# 智能抽帧生产 V1.1 原型源码", "", "> React + Vite 原型。离线发布包直接打开 index.html；桌面文件名为 智能抽帧生产 V1.1.html。", "", "## 源码目录", "", ...sourceFiles.map((name) => `- \`${name}\``), ""];
+const sections = ["# 智能抽帧生产 V1.1 原型源码", "", "> React + Vite 原型。离线发布包直接打开 index.html；桌面文件名为 智能抽帧生产 V1.1.html。表格列顺序为抽帧产出图、商品、成片视频、任务信息 / 生成任务链接。", "", "## 源码目录", "", ...sourceFiles.map((name) => `- \`${name}\``), ""];
 for (const name of sourceFiles) {
   sections.push(`## ${name}`, "", `\`\`\`${languages[path.extname(name)]}`, (await fs.readFile(path.join(root, name), "utf8")).trimEnd(), "```", "");
 }
