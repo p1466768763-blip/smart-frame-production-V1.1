@@ -55,7 +55,7 @@ const groups = [
   },
 ];
 
-const headers = ["抽帧产出图", "商品", "成片视频", "任务信息 / 生成任务链接"];
+const headers = ["上传素材", "抽帧产出图", "商品", "成片视频", "任务信息 / 生成任务链接"];
 
 function formatTaskNumber(createdOn, taskSequence, outputGroup = 1) {
   return `${createdOn.replaceAll("-", "").slice(2)}${String(taskSequence).padStart(2, "0")}${String(outputGroup).padStart(2, "0")}`;
@@ -106,6 +106,16 @@ const storyboardVideos = Array.from({ length: 9 }, (_, i) => {
   const id = String(i + 1).padStart(2, "0");
   return { src: previewAsset(`/assets/storyboard-videos/video-${id}.mp4`), poster: previewAsset(`/assets/storyboard-videos/video-${id}.jpg`), title: `示例视频 ${id}`, duration: "0:04" };
 });
+
+function SampleUploadedMaterial({ generationTaskId, onPlay }) {
+  const video = storyboardVideos[(Number(generationTaskId) - 502 + storyboardVideos.length) % storyboardVideos.length];
+  return <button className="video-thumbnail uploaded-sample-video" type="button" aria-label={`预览示例上传素材，生成任务 ${generationTaskId}`} onClick={() => onPlay({ ...video, label: "上传素材 · 示例" })}>
+    <img src={video.poster} alt={`生成任务 ${generationTaskId} 的示例素材视频`} width="160" height="90" />
+    <span className="video-play-icon" aria-hidden="true"><Play size={13} fill="currentColor" /></span>
+    <span className="uploaded-sample-label">示例素材</span>
+    <span className="video-duration">{video.duration}</span>
+  </button>;
+}
 
 function FinishedVideo({ generationTaskId, onPlay }) {
   const video = storyboardVideos[(Number(generationTaskId) - 501) % storyboardVideos.length];
@@ -330,6 +340,7 @@ function App() {
   const [query, setQuery] = useState({ month: "2026-09", group: "", line: "", store: "", productId: "", generationTaskId: "" });
   const [notice, setNotice] = useState("");
   const [activeVideo, setActiveVideo] = useState(null);
+  const [activeMaterialFile, setActiveMaterialFile] = useState(null);
   const [createTaskOpen, setCreateTaskOpen] = useState(false);
   const [advancedSettingsOpen, setAdvancedSettingsOpen] = useState(false);
   const [taskFiles, setTaskFiles] = useState([]);
@@ -424,7 +435,7 @@ function App() {
       generationTaskId,
       productId,
       isNew: true,
-      fileCount: taskFiles.length,
+      materialFiles: [...taskFiles],
     }, ...current]);
     setCreateTaskOpen(false);
     setTaskFiles([]);
@@ -494,10 +505,14 @@ function App() {
               <div className="table-frame">
                 <div className="table-scroll" role="region" aria-label="目标进度表格，可横向滚动" tabIndex={0}>
                   <table key="original-progress-table" className="progress-table" aria-label="目标进度示意数据">
-                <colgroup><col className="frame-output-col" /><col className="product-col" /><col className="finished-video-col" /><col className="task-info-col" /></colgroup>
+                <colgroup><col className="uploaded-material-col" /><col className="frame-output-col" /><col className="product-col" /><col className="finished-video-col" /><col className="task-info-col" /></colgroup>
                 <thead><tr>{headers.map((h, i) => <th key={`${i}-${h}`} scope="col"><div className="cell">{h}</div></th>)}</tr></thead>
                 <tbody>
-                  {visibleRows.map(({ g, row, taskLinks, taskNumber, generationTaskId, productId, isNew, batchId, batchSize, isBatchFirst, expanded }) => <tr key={taskNumber} className={isNew ? "new-task-row" : !isBatchFirst ? "batch-child-row" : "batch-first-row"}>
+                  {visibleRows.map(({ g, row, taskLinks, taskNumber, generationTaskId, productId, isNew, materialFiles, batchId, batchSize, isBatchFirst, expanded }) => <tr key={taskNumber} className={isNew ? "new-task-row" : !isBatchFirst ? "batch-child-row" : "batch-first-row"}>
+                    <td className="uploaded-material-cell"><div className="cell">{isNew
+                      ? materialFiles?.length ? <div className="uploaded-material-list">{materialFiles.filter((file) => file.type.startsWith("video/")).map((file, index) => <MaterialThumb key={`${file.name}-${file.size}-${index}`} file={file} onPreview={setActiveMaterialFile} />)}{!materialFiles.some((file) => file.type.startsWith("video/")) && <span className="pending-output">未上传视频素材</span>}</div>
+                        : <span className="pending-output">未上传视频素材</span>
+                      : <SampleUploadedMaterial generationTaskId={generationTaskId} onPlay={setActiveVideo} />}</div></td>
                     <td className="frame-output-cell"><div className="cell">{isNew ? <span className="pending-output">正在抽帧</span> : <ThumbnailGrid label={`${g.store} ${row[0]}抽帧`} images={frameThumbnails} count={g.complete} />}</div></td>
                     <td className="product-cell"><div className="cell"><ProductSummary productId={productId} /></div></td>
                     <td className="finished-video-cell"><div className="cell">{isNew ? <span className="pending-output">待生成</span> : <FinishedVideo generationTaskId={generationTaskId} onPlay={setActiveVideo} />}</div></td>
@@ -521,6 +536,7 @@ function App() {
         </main>
       </div>
       {activeVideo && <VideoPreview video={activeVideo} onClose={() => setActiveVideo(null)} />}
+      {activeMaterialFile && <MaterialPreview file={activeMaterialFile} onClose={() => setActiveMaterialFile(null)} />}
       {createTaskOpen && <CreateTaskDialog files={taskFiles} onFilesChange={setTaskFiles} onCancel={closeCreateTask} onConfirm={handleCreateTask} />}
       {advancedSettingsOpen && <AdvancedSettingsDialog onClose={() => setAdvancedSettingsOpen(false)} onSave={saveAdvancedSettings} />}
       {notice && <div className="toast" role="status">{notice}</div>}
